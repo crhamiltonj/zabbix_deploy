@@ -1,0 +1,34 @@
+---
+- name: remove zabbix environment
+  hosts: bk-pve-02
+  tasks:
+    - name: stop the vm
+      community.general.proxmox_kvm:
+        api_user: root@pam
+        api_password: trustgod
+        api_host: bk-pve-02
+        proxmox_default_behavior: no_defaults
+        name: bk-zabdb-01
+        state: stopped
+
+    - name: get current state
+      community.general.proxmox_kvm:
+        api_user: root@pam
+        api_password: trustgod
+        api_host: bk-pve-02
+        proxmox_default_behavior: no_defaults
+        name: bk-zabdb-01
+        state: stopped
+
+    - ansible.builtin.wait_for:
+        timeout: 10
+
+    - name: Remove the VM
+      community.general.proxmox_kvm:
+        api_user: root@pam
+        api_password: trustgod
+        api_host: bk-pve-02
+        proxmox_default_behavior: no_defaults
+        name: bk-zabdb-01
+        state: absent
+...

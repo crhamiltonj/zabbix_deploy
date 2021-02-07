@@ -1,0 +1,5 @@
+plugin: community.general.proxmox
+url: https://bk-pve-01:8006
+user: root@pam
+password: trustgod
+validate_certs: no

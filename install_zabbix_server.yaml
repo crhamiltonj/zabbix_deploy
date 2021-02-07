@@ -1,0 +1,42 @@
+---
+- name: provision zabbix environment
+  hosts: bk-pve-02
+  tasks:
+    - name: Create new VM using cloud-init with a username and password
+      community.general.proxmox_kvm:
+        api_user: root@pam
+        api_password: trustgod
+        api_host: bk-pve-02
+        node: bk-pve-02
+        newid: 501
+        timeout: 300
+        proxmox_default_behavior: no_defaults
+        clone: 'centos-7-base'
+        name: bk-zabbix-01
+        full: false
+        format: unspecified
+        boot: c
+        bootdisk: scsi0
+        vga: serial0
+        serial: {serial0: socket}
+        # sshkeys: "{{ lookup('file', '~/.ssh/id_ed25519.pub')}}"
+        # net:
+        #   net0:'virtio,bridge=vmbr0'
+        # ipconfig:
+        #   ipconfig0: 'ip=192.168.0.121/24,gw=192.168.0.1'
+        ciuser: "ops"
+        cipassword: "iforgot"
+        cicustom: "user=local:snippets/userconfig.yaml, network=local:snippets/networkconfig.yaml"
+        citype: 'nocloud'
+        state: present
+
+    - name: Start the DB VM
+      community.general.proxmox_kvm:
+        api_user: root@pam
+        api_password: trustgod
+        api_host: bk-pve-02
+        vmid: 501
+        proxmox_default_behavior: no_defaults
+        state: started
+
+...

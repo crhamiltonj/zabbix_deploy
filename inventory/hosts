@@ -1,0 +1,27 @@
+[proxmox_nodes:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+[raspis:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+[raspis]
+bk-raspi-01
+bk-raspi-02
+bk-raspi-03
+bk-raspi-04
+bk-raspi-05
+bk-raspi-06
+bk-raspi-07
+bk-raspi-08
+dc02
+
+[zabbix]
+bk-zabbix-01 ansible_user=centos
+bk-zabdb-01 ansible_user=ops
+bk-zabprx-01 ansible_user=ops
+
+[blocked]
+bk-caroot-01
+bk-caint-01
+centos-7-default
+centos-7-base

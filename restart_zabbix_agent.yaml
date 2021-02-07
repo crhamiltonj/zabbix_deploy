@@ -1,0 +1,8 @@
+---
+- hosts: all:!blocked
+  tasks:
+    - name: restart zabbix agent
+      ansible.builtin.service:
+        name: zabbix-agent
+        state: restarted
+...

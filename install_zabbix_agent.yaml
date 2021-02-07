@@ -1,0 +1,6 @@
+---
+- hosts: all:!blocked
+  become: yes
+  roles:
+    - agent-install
+...
